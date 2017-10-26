@@ -25,6 +25,13 @@ tracks.each do |track|
 	puts "\n"
 end
 
+artists = billboard.getArtist100("2016-11-12")
+artists.each do |artist|
+	puts artist.name.to_s
+	puts artist.rank.to_s
+	puts artist.image.to_s
+	puts "\n"
+end
 ```
 # api
 
@@ -58,6 +65,29 @@ Type: `object`
 
 Cover image URL of song.
 
+### artists
+
+Type: `array`
+
+Artist objects.
+
+### artistObject.rank
+
+Type: `number`
+
+Rank of artist on charts.
+
+### artistObject.name
+
+Type: `string`
+
+Name of artist.
+
+### artistObject.image
+
+Type: `object`
+
+Image URL of artist.
 
 # license
 

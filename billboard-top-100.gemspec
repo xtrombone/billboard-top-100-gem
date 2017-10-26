@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name        = 'billboard-top-100'
-  s.version     = '1.0.1'
+  s.version     = '1.1.0'
   s.date        = '2017-10-26'
   s.summary     = "Billboard Hot 100"
-  s.description = "Retrieve top 100 songs from Billboard's \"The Hot 100\""
+  s.description = "Retrieve top 100 lists from Billboard"
   s.authors     = ["Rishi Masand"]
   s.email       = 'masandrishi@gmail.com'
   s.files       = ["lib/billboard-top-100.rb", "lib/track.rb"]

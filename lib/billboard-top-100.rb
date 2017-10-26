@@ -1,5 +1,5 @@
-require 'HTTParty'
-require 'Nokogiri'
+require 'httparty'
+require 'nokogiri'
 require 'track'
 
 class BillboardTop100

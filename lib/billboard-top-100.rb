@@ -47,7 +47,7 @@ class BillboardTop100
 		page = HTTParty.get(url)
 		parser = Nokogiri::HTML(page)
 		parser.css('.chart-row__artist').each do |artist|
-			artists.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
+			names.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
 		end
 		parser.css('.chart-row__image').each do |image|
 			if image.to_s.include? 'background-image'

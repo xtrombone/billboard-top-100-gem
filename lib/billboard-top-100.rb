@@ -2,6 +2,7 @@ require 'httparty'
 require 'nokogiri'
 require 'track'
 require 'artist'
+require 'album'
 
 class BillboardTop100
 	def getTop100(date = "")
@@ -46,7 +47,7 @@ class BillboardTop100
 		page = HTTParty.get(url)
 		parser = Nokogiri::HTML(page)
 		parser.css('.chart-row__artist').each do |artist|
-			names.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
+			artists.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
 		end
 		parser.css('.chart-row__image').each do |image|
 			if image.to_s.include? 'background-image'
@@ -60,5 +61,36 @@ class BillboardTop100
 			artists[i] = artist
 		end
 		return artists
+  end
+
+  def getBillboard200(date = "")
+		url = 'http://www.billboard.com/charts/billboard-200'
+		if date.length > 0
+			url += '/' + date
+		end
+    albums = []
+    artists = []
+		titles = []
+		images = []
+		page = HTTParty.get(url)
+		parser = Nokogiri::HTML(page)
+		parser.css('.chart-row__song').each do |title|
+			titles.push(title.text.to_s.squeeze(" ")[0..title.to_s.length - 1].gsub("\n", ""))
+		end
+		parser.css('.chart-row__artist').each do |artist|
+			artists.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
+		end
+		parser.css('.chart-row__image').each do |image|
+			if image.to_s.include? 'background-image'
+				images.push(image.to_s.split('url(')[1].to_s.split(')')[0])
+			else
+				images.push(image.to_s.split('imagesrc="')[1].to_s.split('">')[0])
+			end
+		end
+		for i in 0..99
+			album = Album.new(titles[i], artists[i], i + 1, images[i])
+			albums[i] = album
+		end
+		return albums
   end
 end

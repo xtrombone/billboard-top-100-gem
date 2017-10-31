@@ -87,7 +87,7 @@ class BillboardTop100
 				images.push(image.to_s.split('imagesrc="')[1].to_s.split('">')[0])
 			end
 		end
-		for i in 0..99
+		for i in 0..199
 			album = Album.new(titles[i], artists[i], i + 1, images[i])
 			albums[i] = album
 		end

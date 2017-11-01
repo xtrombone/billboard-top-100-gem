@@ -32,6 +32,15 @@ artists.each do |artist|
 	puts artist.image.to_s
 	puts "\n"
 end
+
+albums = billboard.getBillboard200("2016-11-12")
+albums.each do |album|
+	puts album.title.to_s
+	puts album.artist.to_s
+	puts album.rank.to_s
+	puts album.image.to_s
+	puts "\n"
+end
 ```
 # api
 
@@ -88,6 +97,30 @@ Name of artist.
 Type: `object`
 
 Image URL of artist.
+
+### albumObject.title
+
+Type: `string`
+
+Title of album.
+
+### albumObject.artist
+
+Type: `string`
+
+Name of artist.
+
+### albumObject.rank
+
+Type: `number`
+
+Rank of album on charts.
+
+### albumObject.image
+
+Type: `object`
+
+Image URL of album.
 
 # license
 

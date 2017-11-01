@@ -1,6 +1,7 @@
 require 'httparty'
 require 'nokogiri'
 require 'track'
+require 'artist'
 
 class BillboardTop100
 	def getTop100(date = "")
@@ -33,4 +34,31 @@ class BillboardTop100
 		end
 		return tracks
 	end
+
+  def getArtist100(date = "")
+		url = 'http://www.billboard.com/charts/artist-100'
+		if date.length > 0
+			url += '/' + date
+		end
+    artists = []
+		names = []
+		images = []
+		page = HTTParty.get(url)
+		parser = Nokogiri::HTML(page)
+		parser.css('.chart-row__artist').each do |artist|
+			names.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
+		end
+		parser.css('.chart-row__image').each do |image|
+			if image.to_s.include? 'background-image'
+				images.push(image.to_s.split('url(')[1].to_s.split(')')[0])
+			else
+				images.push(image.to_s.split('imagesrc="')[1].to_s.split('">')[0])
+			end
+		end
+		for i in 0..99
+			artist = Artist.new(names[i], i + 1, images[i])
+			artists[i] = artist
+		end
+		return artists
+  end
 end

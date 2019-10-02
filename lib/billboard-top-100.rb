@@ -16,13 +16,13 @@ class BillboardTop100
 		covers = []
 		page = HTTParty.get(url)
 		parser = Nokogiri::HTML(page)
-		parser.css('.chart-row__song').each do |title|
+		parser.css('.chart-element__information__song').each do |title|
 			titles.push(title.text)
 		end
-		parser.css('.chart-row__artist').each do |artist|
+		parser.css('.chart-element__information__artist').each do |artist|
 			artists.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
 		end
-		parser.css('.chart-row__image').each do |cover|
+		parser.css('.chart-element__image').each do |cover|
 			if cover.to_s.include? 'background-image'
 				covers.push(cover.to_s.split('url(')[1].to_s.split(')')[0])
 			else
@@ -46,10 +46,10 @@ class BillboardTop100
 		images = []
 		page = HTTParty.get(url)
 		parser = Nokogiri::HTML(page)
-		parser.css('.chart-row__artist').each do |artist|
+		parser.css('.chart-list-item__title-text a').each do |artist|
 			names.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
 		end
-		parser.css('.chart-row__image').each do |image|
+		parser.css('.chart-list-item__image').each do |image|
 			if image.to_s.include? 'background-image'
 				images.push(image.to_s.split('url(')[1].to_s.split(')')[0])
 			else
@@ -74,13 +74,13 @@ class BillboardTop100
 		images = []
 		page = HTTParty.get(url)
 		parser = Nokogiri::HTML(page)
-		parser.css('.chart-row__song').each do |title|
+		parser.css('.chart-element__information__song').each do |title|
 			titles.push(title.text.to_s.squeeze(" ")[0..title.to_s.length - 1].gsub("\n", ""))
 		end
-		parser.css('.chart-row__artist').each do |artist|
+		parser.css('.chart-element__information__artist').each do |artist|
 			artists.push(artist.text.to_s.squeeze(" ")[1..artist.to_s.length - 1].gsub("\n", ""))
 		end
-		parser.css('.chart-row__image').each do |image|
+		parser.css('.chart-element__image').each do |image|
 			if image.to_s.include? 'background-image'
 				images.push(image.to_s.split('url(')[1].to_s.split(')')[0])
 			else
